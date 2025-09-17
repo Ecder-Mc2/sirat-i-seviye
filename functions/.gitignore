@@ -1,0 +1,8 @@
+# Dependencies
+/node_modules/
+
+# Build artifacts
+/lib/
+
+# Firebase environment files
+.runtimeconfig.json
