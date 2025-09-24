@@ -4,15 +4,22 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, DocumentData } from 'firebase/firestore';
 import { ArrowLeft, BookOpen } from 'lucide-react';
+
+// DÜZELTME: Firestore'dan gelen Kitap verisi için bir tip tanımı oluşturuldu.
+interface Kitap extends DocumentData {
+    title: string;
+    content: string[];
+}
 
 const firebaseConfig = { apiKey: "AIzaSyAMyZGfqkKiHgdDrWPRkp40b6UvDLgodGY", authDomain: "sirat-i-seviye.firebaseapp.com", projectId: "sirat-i-seviye", storageBucket: "sirat-i-seviye.firebasestorage.app", messagingSenderId: "683762330129", appId: "1:683762330129:web:30167dac8ab73e2747dfb0", measurementId: "G-JSGPFTQ8Z0" };
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
 export default function KitapDetailPage({ params }: { params: { kitapId: string } }) {
-    const [kitap, setKitap] = useState<any>(null);
+    // DÜZELTME: useState'de 'any' yerine 'Kitap | null' tipi kullanıldı.
+    const [kitap, setKitap] = useState<Kitap | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -23,7 +30,8 @@ export default function KitapDetailPage({ params }: { params: { kitapId: string 
                     const kitapRef = doc(db, 'kitaplik', params.kitapId);
                     const docSnap = await getDoc(kitapRef);
                     if (docSnap.exists()) {
-                        setKitap(docSnap.data());
+                        // DÜZELTME: Gelen veriye Kitap tipi atandı.
+                        setKitap(docSnap.data() as Kitap);
                     } else {
                         console.log("No such document!");
                     }
