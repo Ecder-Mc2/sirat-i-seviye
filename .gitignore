@@ -30,7 +30,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
 
 # vercel
@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .vscode/
+
+# SIRAT-I SEVİYE ÖZEL KURALLARI
+# functions klasöründeki package-lock.json dosyasını ASLA görmezden gelme.
+# Bu, Vercel'in Cloud Functions bağımlılıklarını doğru kurması için kritik.
+!/functions/package-lock.json
