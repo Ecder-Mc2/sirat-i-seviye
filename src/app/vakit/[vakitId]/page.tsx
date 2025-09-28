@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { useVakitler } from '../../../context/VakitContext';
 import { ArrowLeft, Moon, Sunrise, Sunset, Sun, Wind, Star, Clock } from 'lucide-react';
 
-// DÜZELTME: Diğer dosyalarda olduğu gibi Vakit tipi burada da tanımlandı.
+// Vakit tipi tanımı
 interface Vakit {
     id: string;
     name: string;
@@ -18,7 +18,7 @@ interface Vakit {
     progress?: number;
 }
 
-// DÜZELTME: İkon fonksiyonu artık Vakit tipini kullanıyor.
+// İkon fonksiyonu
 const getVakitIcon = (vakit: Partial<Vakit> | null) => { 
     if (!vakit || !vakit.name) return <Clock size={24} className="text-gray-400" />; 
     const name = vakit.name.toLowerCase(); 
@@ -33,18 +33,18 @@ const getVakitIcon = (vakit: Partial<Vakit> | null) => {
 
 export default function VakitDetailPage({ params }: { params: { vakitId: string } }) {
     const { allVakitlerList } = useVakitler();
-    // DÜZELTME: useState'de 'any' yerine 'Vakit | null' tipi kullanıldı.
     const [vakitDetay, setVakitDetay] = useState<Vakit | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 4;
 
     useEffect(() => {
-        if (allVakitlerList.length > 0) {
+        // YENİ DÜZELTME: params.vakitId doğrudan burada kullanılıyor.
+        if (allVakitlerList.length > 0 && params.vakitId) {
             const decodedVakitId = decodeURIComponent(params.vakitId);
-            // DÜZELTME: find fonksiyonu içindeki 'v' artık Vakit tipinde.
             const bulunanVakit = allVakitlerList.find((v: Vakit) => v.id === decodedVakitId);
             setVakitDetay(bulunanVakit || null);
         }
+    // YENİ DÜZELTME: Bağımlılık dizisi de doğrudan params.vakitId kullanıyor.
     }, [params.vakitId, allVakitlerList]);
 
     if (!vakitDetay) {
@@ -95,3 +95,4 @@ export default function VakitDetailPage({ params }: { params: { vakitId: string 
         </main>
     );
 }
+

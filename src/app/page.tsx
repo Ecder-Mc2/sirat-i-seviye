@@ -229,7 +229,7 @@ export default function Home() {
                         <div className="w-full bg-black bg-opacity-20 rounded-full h-5">
                             <div className="bg-gradient-to-r from-green-400 to-emerald-500 h-5 rounded-full" style={{ width: `${currentVakitDetail?.progress || 0}%` }}></div>
                         </div>
-                        <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
+                        <div className="absolute inset-0 flex items-center justify-end pr-4 text-xs font-bold text-white" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
                             {currentVakitDetail ? `${Math.round(currentVakitDetail.progress ?? 0)}%` : '0%'}
                         </div>
                     </div>
@@ -253,14 +253,13 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 my-8 w-full max-w-2xl">
+            <div className="grid grid-cols-3 gap-2 my-2 w-full max-w-2xl">
                 <Link href="/settings" className="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center justify-center space-y-2 hover:bg-gray-700 transition-colors"> <Settings size={28} /> <span className="text-sm font-semibold">Ayarlar</span> </Link>
                 <Link href="/research" className="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center justify-center space-y-2 hover:bg-gray-700 transition-colors"> <Search size={28} /> <span className="text-sm font-semibold">Araştırma</span> </Link>
                 <Link href="/media" className="bg-gray-800 p-4 rounded-lg shadow-md flex flex-col items-center justify-center space-y-2 hover:bg-gray-700 transition-colors"> <Download size={28} /> <span className="text-sm font-semibold">Medya</span> </Link>
             </div>
             
-            <div className="w-full max-w-2xl mt-4 mb-8">
-                <h3 className="text-2xl font-bold text-center mb-4">Günün Vakitleri</h3>
+            <div className="w-full max-w-2xl mt-2 mb-2">
                 <div className="space-y-2">
                     {displayedVakitler.map((vakit) => {
                         const isActive = currentVakitDetail?.id === vakit.id;
